@@ -1,0 +1,21 @@
+import express from "express";
+import {
+  createColorCtrl,
+  deleteColorCtrl,
+  getAllColorsCtrl,
+  getSingleColorCtrl,
+  updateColorCtrl,
+} from "../controller/colorsCtrl.js";
+// import isAdmin from "../middlewares/isAdmin.js";
+
+import { isLoggedIn } from "../middlerwares/isLoggedIn.js";
+import { isAdmin } from "../middlerwares/isAdmin.js";
+const colorRouter = express.Router();
+
+colorRouter.post("/", isLoggedIn,isAdmin, createColorCtrl);
+colorRouter.get("/", getAllColorsCtrl);
+colorRouter.get("/:id", getSingleColorCtrl);
+colorRouter.delete("/:id", isLoggedIn,isAdmin, deleteColorCtrl);
+colorRouter.put("/:id", isLoggedIn , isAdmin,updateColorCtrl);
+
+export default colorRouter;
